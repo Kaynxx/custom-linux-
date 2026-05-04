@@ -23,6 +23,7 @@ man-db
 man-pages
 mdadm
 mkinitcpio
+mkinitcpio-archiso
 mtools
 nano
 nbd
