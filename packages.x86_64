@@ -57,6 +57,10 @@ gptfdisk
 openssh
 rsync
 # Hyprland and Wayland
+nvidia
+nvidia-utils
+nvidia-settings
+egl-wayland
 hyprland
 kitty
 waybar
