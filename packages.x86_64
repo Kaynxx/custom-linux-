@@ -1,3 +1,4 @@
+# Base system
 arch-install-scripts
 base
 btrfs-progs
@@ -7,7 +8,6 @@ dhcpcd
 dosfstools
 e2fsprogs
 efibootmgr
-fatresize
 fsarchiver
 grub
 hdparm
@@ -21,7 +21,6 @@ lvm2
 man-db
 man-pages
 mdadm
-memtest86+
 mkinitcpio
 mtools
 nano
@@ -42,7 +41,7 @@ vim
 wireless-regdb
 wpa_supplicant
 xfsprogs
-# Hyprland and JaKooLit's Dependencies
+# Hyprland and Wayland
 hyprland
 kitty
 waybar
@@ -54,7 +53,7 @@ qt5-wayland
 qt6-wayland
 xdg-desktop-portal-hyprland
 swaybg
-swaylock-effects
+swaylock
 wlogout
 grim
 slurp
@@ -77,10 +76,11 @@ fastfetch
 ttf-jetbrains-mono-nerd
 noto-fonts-emoji
 sddm
-# User Apps
+# GUI Package Manager
+plasma-discover
+packagekit-qt6
+# User Apps (from chaotic-aur)
 brave-bin
 spotify
-discover
-packagekit-qt5
-# Installers
+# Installer
 archinstall
