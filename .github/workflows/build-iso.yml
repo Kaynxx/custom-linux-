@@ -1,0 +1,67 @@
+name: Build Custom Arch ISO
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:latest
+      options: --privileged
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          pacman -Syu --noconfirm git archiso base-devel wget
+
+      - name: Setup Chaotic AUR (for AUR packages)
+        run: |
+          pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
+          pacman-key --lsign-key 3056513887B78AEB
+          pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' --noconfirm
+          pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst' --noconfirm
+          echo "" >> /etc/pacman.conf
+          echo "[chaotic-aur]" >> /etc/pacman.conf
+          echo "Include = /etc/pacman.d/chaotic-mirrorlist" >> /etc/pacman.conf
+          pacman -Sy
+
+      - name: Prepare archiso profile
+        run: |
+          cp -r /usr/share/archiso/configs/releng ./custom-iso
+          
+          # Overwrite packages.x86_64
+          cp packages.x86_64 ./custom-iso/packages.x86_64
+          
+          # Inject chaotic-aur to the iso's pacman.conf so it can download AUR packages
+          sed -i '/\[custom\]/i [chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist\n' ./custom-iso/pacman.conf
+          mkdir -p ./custom-iso/airootfs/etc/pacman.d/
+          cp /etc/pacman.d/chaotic-mirrorlist ./custom-iso/airootfs/etc/pacman.d/
+          
+          # Apply our custom airootfs files
+          if [ -d "airootfs" ]; then
+            cp -r airootfs/* ./custom-iso/airootfs/
+          fi
+          
+          # Apply custom profiledef if exists
+          if [ -f "profiledef.sh" ]; then
+            cp profiledef.sh ./custom-iso/profiledef.sh
+          fi
+
+          # Ensure customize script is executable
+          chmod +x ./custom-iso/airootfs/root/customize_airootfs.sh
+
+      - name: Build ISO
+        run: |
+          mkarchiso -v -w /tmp/work -o /tmp/out ./custom-iso
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Custom-Arch-ISO
+          path: /tmp/out/*.iso
