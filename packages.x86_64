@@ -29,7 +29,6 @@ nano
 nbd
 ndisc6
 networkmanager
-openresolv
 parted
 pv
 sdparm
@@ -43,6 +42,20 @@ vim
 wireless-regdb
 wpa_supplicant
 xfsprogs
+amd-ucode
+intel-ucode
+edk2-shell
+memtest86+
+memtest86+-efi
+sof-firmware
+xdg-utils
+alsa-utils
+ntfs-3g
+exfatprogs
+qemu-guest-agent
+gptfdisk
+openssh
+rsync
 # Hyprland and Wayland
 hyprland
 kitty
