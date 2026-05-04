@@ -9,11 +9,8 @@ e2fsprogs
 efibootmgr
 fatresize
 fsarchiver
-gnu-netcat
 grub
 hdparm
-ipw2100-fw
-ipw2200-fw
 iw
 iwd
 jfsutils
@@ -34,7 +31,6 @@ networkmanager
 openresolv
 parted
 pv
-reiserfsprogs
 sdparm
 smartmontools
 squashfs-tools
@@ -84,7 +80,7 @@ sddm
 # User Apps
 brave-bin
 spotify
-pamac-aur
+discover
+packagekit-qt5
 # Installers
-calamares
 archinstall
