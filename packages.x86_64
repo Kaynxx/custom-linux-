@@ -77,8 +77,7 @@ ttf-jetbrains-mono-nerd
 noto-fonts-emoji
 sddm
 # GUI Package Manager
-plasma-discover
-packagekit-qt6
+discover
 # User Apps (from chaotic-aur)
 brave-bin
 spotify
