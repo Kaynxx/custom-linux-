@@ -54,8 +54,9 @@ jobs:
           # Inject chaotic-aur into the ISO's pacman.conf so packages install inside ISO
           echo -e "\n[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist" >> ./custom-iso/pacman.conf
 
-          # Copy chaotic mirrorlist into the build env for mkarchiso to use
-          cp /etc/pacman.d/chaotic-mirrorlist /etc/pacman.d/chaotic-mirrorlist
+          # Copy chaotic mirrorlist into the ISO's airootfs so it's available at install time
+          mkdir -p ./custom-iso/airootfs/etc/pacman.d/
+          cp /etc/pacman.d/chaotic-mirrorlist ./custom-iso/airootfs/etc/pacman.d/chaotic-mirrorlist
 
           # Ensure customize script is executable
           if [ -f "./custom-iso/airootfs/root/customize_airootfs.sh" ]; then
